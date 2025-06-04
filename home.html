@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>A Novel Eye-Gaze-Controlled Wheelchair Al </title>
+  <title>A Novel Eye-Gaze-Controlled Wheelchair Al</title>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet"/>
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
-  
+
   <style>
     * {
       margin: 0;
@@ -45,49 +44,49 @@
     }
 
     .sidebar {
-        width: 250px;
-        background: linear-gradient(180deg, #2d3748 0%, #1a202c 100%);
-        padding: 20px;
-        height: 100vh;
-        position: fixed;
-        top: 60px;
-        left: 0;
-        z-index: 900;
-      }
-    
-      .sidebar button {
-        width: 100%;
-        background: none;
-        border: none;
-        color: #e2e8f0;
-        font-size: 16px;
-        padding: 12px 15px;
-        text-align: left;
-        border-radius: 8px;
-        margin-bottom: 5px;
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        gap: 10px;
-        transition: all 0.3s ease;
-      }
-    
-      .sidebar button:hover {
-        background-color: rgba(255, 255, 255, 0.1);
-        transform: translateX(5px);
-      }
+      width: 250px;
+      background: linear-gradient(180deg, #2d3748 0%, #1a202c 100%);
+      padding: 20px;
+      height: 100vh;
+      position: fixed;
+      top: 60px;
+      left: 0;
+      z-index: 900;
+    }
 
-      .main-content {
-        margin-left: 250px;
-        padding: 80px 40px;
-        width: calc(100% - 250px);
-        max-width: 4500px;
-        min-height: 1000vh;
-        display: flex;
-        flex-direction: column;
-        justify-content: flex-start;
-      }
-      
+    .sidebar button {
+      width: 100%;
+      background: none;
+      border: none;
+      color: #e2e8f0;
+      font-size: 16px;
+      padding: 12px 15px;
+      text-align: left;
+      border-radius: 8px;
+      margin-bottom: 5px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .sidebar button:hover {
+      background-color: rgba(255, 255, 255, 0.1);
+      transform: translateX(5px);
+    }
+
+    .main-content {
+      margin-left: 250px;
+      padding: 80px 40px;
+      width: calc(100% - 250px);
+      max-width: 4500px;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-start;
+      align-items: center; /* CENTER CONTENT */
+    }
 
     .upload-sections {
       display: flex;
@@ -135,44 +134,44 @@
     .custom-file-upload:hover {
       background: #45a049;
     }
+
     .footer {
-        position: fixed;
-        bottom: 0;
-        left: 250px;
-        width: calc(100% - 250px);
-        height: 50px;
-        background: #1a202c;
-        color: white;
-        display: flex;
-        align-items: center;
-        justify-content: flex-start;
-        padding-left: 60px;
-        z-index: 999;
-      }
-      
-      .rotating-circle {
-        width: 25px;
-        height: 25px;
-        border: 3px solid #4CAF50;
-        border-top: 3px solid transparent;
-        border-radius: 50%;
-        margin-right: 20px;
-        animation: spin 1.2s linear infinite;
-      }
-      
-      .scrolling-text {
-        color: #fff;
-        font-size: 14px;
-        overflow: hidden;
-        white-space: nowrap;
-        width: 100%;
-      }
-      
-      @keyframes spin {
-        0% { transform: rotate(0deg); }
-        100% { transform: rotate(360deg); }
-      }
-      
+      position: fixed;
+      bottom: 0;
+      left: 250px;
+      width: calc(100% - 250px);
+      height: 50px;
+      background: #1a202c;
+      color: white;
+      display: flex;
+      align-items: center;
+      justify-content: flex-start;
+      padding-left: 60px;
+      z-index: 999;
+    }
+
+    .rotating-circle {
+      width: 25px;
+      height: 25px;
+      border: 3px solid #4CAF50;
+      border-top: 3px solid transparent;
+      border-radius: 50%;
+      margin-right: 20px;
+      animation: spin 1.2s linear infinite;
+    }
+
+    .scrolling-text {
+      color: #fff;
+      font-size: 14px;
+      overflow: hidden;
+      white-space: nowrap;
+      width: 100%;
+    }
+
+    @keyframes spin {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
   </style>
 </head>
 <body>
@@ -180,55 +179,62 @@
 <!-- Navbar -->
 <nav>
   <ul class="navbar">
-    <h1><i class="fas fa-box"></i> A Novel Eye-Gaze-Controlled Wheelchair Al</h1>
+    <h1><i class="fas fa-box"></i> A Novel Eye-Gaze-Controlled Wheelchair AI</h1>
   </ul>
 </nav>
 
+<!-- Sidebar -->
 <div class="sidebar">
-    <button onclick="location.href='./home.html'"><i class="fas fa-home"></i> Home</button>
-    <button onclick="location.href='./profile.html'"><i class="fas fa-profile"></i> Profile</button>
-    <button onclick="location.href='./setting.html'"><i class="fas fa-cog"></i> Settings</button>
-    <button onclick="location.href='./history.html'"><i class="fas fa-history"></i> History</button>
-    <button onclick="location.href='./help.html'"><i class="fas fa-question-circle"></i> Help</button>
-  </div>
-  
+  <button onclick="location.href='./home.html'"><i class="fas fa-home"></i> Home</button>
+  <button onclick="location.href='./profile.html'"><i class="fas fa-user"></i> Profile</button>
+  <button onclick="location.href='./setting.html'"><i class="fas fa-cog"></i> Settings</button>
+  <button onclick="location.href='./history.html'"><i class="fas fa-history"></i> History</button>
+  <button onclick="location.href='./help.html'"><i class="fas fa-question-circle"></i> Help</button>
+</div>
 
 <!-- Main Section -->
-<div class="upload-sections">
-  <div class="upload-container">
-    <h2>📷 Raspberry Pi Camera</h2>
-    <p>Live stream from Raspberry Pi webcam.</p>
-    <button class="custom-file-upload" onclick="window.location.href='camera.html'">
-      <i class="fas fa-video"></i> Open Camera
-    </button>
-  </div>
+<div class="main-content">
+  <div class="upload-sections">
+    
+    <!-- Raspberry Pi Camera -->
+    <div class="upload-container">
+      <h2>📷 Raspberry Pi Camera</h2>
+      <p>Live stream from Raspberry Pi webcam.</p>
+      <button class="custom-file-upload" onclick="window.location.href='camera.html'">
+        <i class="fas fa-video"></i> Open Camera
+      </button>
+    </div>
 
-  <div class="upload-container">
-    <h2>🔗 Arduino Connectivity</h2>
-    <p>Check communication between Raspberry Pi and Arduino.</p>
-    <button class="custom-file-upload" onclick="window.location.href='connection.html'">
-      <i class="fas fa-microchip"></i> Check Connection
-    </button>
-  </div>
+    <!-- Arduino Connectivity -->
+    <div class="upload-container">
+      <h2>🔗 Arduino Connectivity</h2>
+      <p>Check communication between Raspberry Pi and Arduino.</p>
+      <button class="custom-file-upload" onclick="window.location.href='connection.html'">
+        <i class="fas fa-microchip"></i> Check Connection
+      </button>
+    </div>
 
-  <div class="upload-container">
-    <h2>📍 GPS & Location Tracking</h2>
-    <p>View real-time location data from GPS module.</p>
-    <button class="custom-file-upload" onclick="window.location.href='gps.html'">
-      <i class="fas fa-map-marker-alt"></i> View Location
-    </button>
+    <!-- GPS and Location -->
+    <div class="upload-container">
+      <h2>📍 GPS & Location Tracking</h2>
+      <p>View real-time location data from GPS module.</p>
+      <button class="custom-file-upload" onclick="window.location.href='gps.html'">
+        <i class="fas fa-map-marker-alt"></i> View Location
+      </button>
+    </div>
+
   </div>
 </div>
 
 <!-- Footer -->
 <footer class="footer">
-    <div class="rotating-circle"></div>
-    <div class="scrolling-text">
-      <marquee behavior="scroll" direction="left" scrollamount="6">
-        🔄  A Novel Eye-Gaze-Controlled Wheelchair Al | Powered by Raspberry Pi and Arduino | Secure Delivery Management | Real-Time Monitoring | IoT-enabled Parcel Lockers | Live Stream & motor left and right side movie 
-      </marquee>
-    </div>
-  </footer>
-  
+  <div class="rotating-circle"></div>
+  <div class="scrolling-text">
+    <marquee behavior="scroll" direction="left" scrollamount="6">
+      🔄 A Novel Eye-Gaze-Controlled Wheelchair AI | Powered by Raspberry Pi and Arduino | Secure Delivery Management | Real-Time Monitoring | IoT-enabled Parcel Lockers | Live Stream & Motor Left and Right Movement
+    </marquee>
+  </div>
+</footer>
+
 </body>
 </html>
