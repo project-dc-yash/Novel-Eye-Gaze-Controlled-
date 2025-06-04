@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Fixed Eye Tracking with Motor Notification</title>
+  <title>Eye Tracking Showing All Movements</title>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/face_mesh.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/camera_utils/camera_utils.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@mediapipe/drawing_utils/drawing_utils.js"></script>
@@ -41,6 +41,9 @@
       display: flex;
       gap: 20px;
       font-size: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+      max-width: 700px;
     }
 
     .status-box {
@@ -48,6 +51,8 @@
       padding: 15px 25px;
       border-radius: 10px;
       box-shadow: 0 0 10px rgba(0, 255, 0, 0.5);
+      min-width: 180px;
+      text-align: center;
     }
 
     .green { color: #00ff00; }
@@ -57,7 +62,7 @@
 </head>
 <body>
 
-  <h1>🔍 Improved Eye Tracking with Motor Notification</h1>
+  <h1>👁️ Eye Tracking Showing All Detected Movements</h1>
   
   <div class="video-wrapper">
     <video id="video" autoplay muted playsinline></video>
@@ -66,10 +71,13 @@
 
   <div class="status-panel">
     <div class="status-box">
-      Gaze Direction: <span id="gazeDirection" class="yellow">Detecting...</span>
+      Horizontal Gaze: <span id="horizontalGaze" class="yellow">Detecting...</span>
     </div>
     <div class="status-box">
-      Motor Status: <span id="motorStatus" class="yellow">Waiting...</span>
+      Vertical Gaze: <span id="verticalGaze" class="yellow">Detecting...</span>
+    </div>
+    <div class="status-box">
+      Motor Actions: <span id="motorActions" class="yellow">Waiting...</span>
     </div>
   </div>
 
@@ -78,8 +86,12 @@
     const canvasElement = document.getElementById('overlay');
     const canvasCtx = canvasElement.getContext('2d');
 
-    const gazeText = document.getElementById('gazeDirection');
-    const motorText = document.getElementById('motorStatus');
+    const horizontalGazeText = document.getElementById('horizontalGaze');
+    const verticalGazeText = document.getElementById('verticalGaze');
+    const motorActionsText = document.getElementById('motorActions');
+
+    canvasElement.width = 640;
+    canvasElement.height = 480;
 
     const faceMesh = new FaceMesh({
       locateFile: (file) => `https://cdn.jsdelivr.net/npm/@mediapipe/face_mesh/${file}`,
@@ -99,46 +111,78 @@
       if (results.multiFaceLandmarks.length > 0) {
         const landmarks = results.multiFaceLandmarks[0];
 
-        const leftIris = landmarks[468];  // Left eye center
-        const rightIris = landmarks[473]; // Right eye center
-        const nose = landmarks[1];        // Nose center
+        const leftIris = landmarks[468];  
+        const rightIris = landmarks[473]; 
+        const nose = landmarks[1];        
 
         const canvasWidth = canvasElement.width;
+        const canvasHeight = canvasElement.height;
+
         const leftX = leftIris.x * canvasWidth;
         const rightX = rightIris.x * canvasWidth;
         const noseX = nose.x * canvasWidth;
 
+        const leftY = leftIris.y * canvasHeight;
+        const rightY = rightIris.y * canvasHeight;
+        const noseY = nose.y * canvasHeight;
+
         const eyeAvgX = (leftX + rightX) / 2;
-        const deltaX = eyeAvgX - noseX;
+        const eyeAvgY = (leftY + rightY) / 2;
+
+        const deltaX = eyeAvgX - noseX;  
+        const deltaY = eyeAvgY - noseY;  
 
         // Draw boxes on eyes
-        [[leftX, leftIris.y], [rightX, rightIris.y]].forEach(([x, y]) => {
-          const drawX = x;
-          const drawY = y * canvasElement.height;
+        [[leftX, leftY], [rightX, rightY]].forEach(([x, y]) => {
           canvasCtx.beginPath();
-          canvasCtx.rect(drawX - 8, drawY - 8, 16, 16);
+          canvasCtx.rect(x - 8, y - 8, 16, 16);
           canvasCtx.strokeStyle = '#00ff00';
           canvasCtx.lineWidth = 2;
           canvasCtx.stroke();
         });
 
-        // Adjusted threshold logic
-        if (deltaX < -12) {
-          gazeText.innerText = "Looking Left";
-          gazeText.className = "green";
-          motorText.innerText = "Left Motor Activated";
-          motorText.className = "green";
-        } else if (deltaX > 12) {
-          gazeText.innerText = "Looking Right";
-          gazeText.className = "red";
-          motorText.innerText = "Right Motor Activated";
-          motorText.className = "red";
-        } else {
-          gazeText.innerText = "Looking Center";
-          gazeText.className = "yellow";
-          motorText.innerText = "Motors Stopped";
-          motorText.className = "yellow";
+        const horizontalThreshold = 12;
+        const verticalThreshold = 10;
+
+        // Horizontal gaze detection
+        let horizontalGaze = "Center";
+        let horizontalClass = "yellow";
+        if (deltaX < -horizontalThreshold) {
+          horizontalGaze = "Looking Left";
+          horizontalClass = "green";
+        } else if (deltaX > horizontalThreshold) {
+          horizontalGaze = "Looking Right";
+          horizontalClass = "red";
         }
+
+        // Vertical gaze detection
+        let verticalGaze = "Center";
+        let verticalClass = "yellow";
+        if (deltaY < -verticalThreshold) {
+          verticalGaze = "Looking Forward (Up)";
+          verticalClass = "green";
+        } else if (deltaY > verticalThreshold) {
+          verticalGaze = "Looking Backward (Down)";
+          verticalClass = "red";
+        }
+
+        // Determine motor actions based on all active directions
+        const motorActions = [];
+        if (horizontalGaze === "Looking Left") motorActions.push("Left Motor Activated");
+        if (horizontalGaze === "Looking Right") motorActions.push("Right Motor Activated");
+        if (verticalGaze === "Looking Forward (Up)") motorActions.push("Forward Motor Activated");
+        if (verticalGaze === "Looking Backward (Down)") motorActions.push("Backward Motor Activated");
+        if (motorActions.length === 0) motorActions.push("Motors Stopped");
+
+        // Update the UI
+        horizontalGazeText.innerText = horizontalGaze;
+        horizontalGazeText.className = horizontalClass;
+
+        verticalGazeText.innerText = verticalGaze;
+        verticalGazeText.className = verticalClass;
+
+        motorActionsText.innerText = motorActions.join(", ");
+        motorActionsText.className = motorActions.includes("Stopped") ? "yellow" : "green";
       }
     });
 
